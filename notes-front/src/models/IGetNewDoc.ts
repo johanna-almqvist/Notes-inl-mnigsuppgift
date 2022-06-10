@@ -1,5 +1,7 @@
 export interface IGetNewDoc {
-  id: number;
+  id?: number;
   docName: string;
   docDescription: string;
+  htmlText?: string;
+  tinymceText?: string;
 }

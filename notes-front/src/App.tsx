@@ -21,6 +21,7 @@ function App() {
             <Route path="/alldocs" element={<AllDocs />} />
             <Route path="/newdoc" element={<NewDoc />} />
             <Route path="/viewdoc/:documentId" element={<ViewDoc />} />
+            <Route path="/viewdoc/:documentId/edit" element={<EditPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

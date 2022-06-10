@@ -21,6 +21,7 @@ export function AllDocs() {
 
   return (
     <>
+      <h2>Alla Dokument</h2>
       <Container>
         {loading ? (
           <Spinner animation="border" />

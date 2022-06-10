@@ -1,19 +1,52 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { IGetNewDoc } from "../models/IGetNewDoc";
+import { getDocumentById, updateDocument } from "../services/DocumentService";
 
 export function EditPage() {
   const editorRef = useRef<any>(null);
-  const log = () => {
+  const uppdateraDokument = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
+      if (document !== undefined) {
+        const htmlText = editorRef.current.getContent();
+        setDocument({ ...document, htmlText });
+        updateDocument({ ...document, htmlText })
+          .then(() => {})
+          .catch(console.log);
+      }
     }
   };
+  const [document, setDocument] = useState<IGetNewDoc>();
+  let { documentId } = useParams();
+
+  useEffect(() => {
+    if (documentId !== undefined) {
+      getDocumentById(+documentId)
+        .then((data) => {
+          console.log(data);
+          setDocument(data);
+        })
+        .catch(console.log);
+    }
+  }, [documentId]);
+  if (document === undefined) {
+    return <div>Laddar dokument...</div>;
+  }
   return (
     <>
+      <Container>
+        <div>
+          <h3>{document?.docName}</h3>
+          <p>{document?.docDescription}</p>
+        </div>
+      </Container>
       <Editor
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        initialValue={document.tinymceText}
         init={{
           height: 500,
           menubar: false,
@@ -46,7 +79,7 @@ export function EditPage() {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button onClick={log}>Log editor content</button>
+      <button onClick={uppdateraDokument}>Spara</button>
     </>
   );
 }
