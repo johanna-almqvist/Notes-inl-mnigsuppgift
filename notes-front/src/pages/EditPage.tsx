@@ -1,8 +1,8 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React from "react";
 import { useRef, useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Button, Container } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IGetNewDoc } from "../models/IGetNewDoc";
 import { getDocumentById, updateDocument } from "../services/DocumentService";
 
@@ -15,13 +15,17 @@ export function EditPage() {
         const htmlText = editorRef.current.getContent();
         setDocument({ ...document, htmlText });
         updateDocument({ ...document, htmlText })
-          .then(() => {})
+          .then(() => {
+            navigate("/viewdoc/" + documentId, { replace: true });
+          })
           .catch(console.log);
       }
     }
   };
   const [document, setDocument] = useState<IGetNewDoc>();
   let { documentId } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (documentId !== undefined) {
@@ -37,13 +41,11 @@ export function EditPage() {
     return <div>Laddar dokument...</div>;
   }
   return (
-    <>
-      <Container>
-        <div>
-          <h3>{document?.docName}</h3>
-          <p>{document?.docDescription}</p>
-        </div>
-      </Container>
+    <Container>
+      <div>
+        <h3>{document?.docName}</h3>
+        <p>{document?.docDescription}</p>
+      </div>
       <Editor
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue={document.tinymceText}
@@ -79,7 +81,12 @@ export function EditPage() {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button onClick={uppdateraDokument}>Spara</button>
-    </>
+      <Button variant="outline-success" onClick={uppdateraDokument}>
+        Spara
+      </Button>{" "}
+      <Link to="/">
+        <Button variant="outline-secondary">Visa alla dokument</Button>
+      </Link>
+    </Container>
   );
 }

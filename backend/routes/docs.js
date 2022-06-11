@@ -22,6 +22,24 @@ router.post("/", function (req, res) {
   });
 });
 
+/* GET users listing. */
+router.get("/", function (req, res, next) {
+  req.app.locals.con.connect(function (err) {
+    if (err) {
+      console.log(err);
+    }
+    let sql = `SELECT id ,docName, docDescription, createDate FROM documents`;
+
+    req.app.locals.con.query(sql, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      console.log("result", result);
+      res.send(result);
+    });
+  });
+});
+
 /* Get 1 doc. */
 router.get("/:id", function (req, res) {
   req.app.locals.con.connect(function (err) {

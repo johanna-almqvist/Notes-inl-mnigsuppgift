@@ -1,13 +1,21 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 
-export function Layout() {
+interface LayoutProps {
+  isLoggedIn: boolean;
+  setIsLoggedIn(value: boolean): void;
+}
+
+export function Layout(props: LayoutProps) {
   return (
     <>
       <div>
         <header>
           <nav>
-            <Header></Header>
+            <Header
+              isLoggedIn={props.isLoggedIn}
+              setIsLoggedIn={props.setIsLoggedIn}
+            ></Header>
           </nav>
         </header>
         <main>

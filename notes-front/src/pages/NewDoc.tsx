@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Container, Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { IGetNewDoc } from "../models/IGetNewDoc";
 import { createDocuments } from "../services/DocumentService";
 
@@ -9,6 +9,8 @@ export function NewDoc() {
     docName: "",
     docDescription: "",
   });
+
+  const navigate = useNavigate();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     let name = e.target.name;
@@ -21,17 +23,13 @@ export function NewDoc() {
 
   function onFormSubmit(event: any) {
     event.preventDefault();
-    const html = "<p>HEJ JOHANNA</p>";
-    const blob = new Blob([html], { type: "text/html" });
-    newDocument.htmlText = html;
+    const html = "<p>Nytt Dokument</p>";
 
-    console.log("Newdocument", newDocument);
-    blob.text().then((b) => {
-      console.log("PROMISSSSSS", b);
-    });
+    newDocument.htmlText = html;
 
     createDocuments(newDocument)
       .then((value) => {
+        navigate("/", { replace: true });
         console.log(value);
       })
       .catch(console.log);
@@ -39,7 +37,7 @@ export function NewDoc() {
     console.log(newDocument);
   }
   return (
-    <>
+    <Container>
       <h2>Nytt Dokument</h2>
       <Form onSubmit={onFormSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -63,13 +61,13 @@ export function NewDoc() {
             rows={3}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="outline-primary" type="submit">
           Submit
-        </Button>
-        <Link to="/alldocs">
-          <Button>Tillbaka</Button>
+        </Button>{" "}
+        <Link to="/">
+          <Button variant="outline-secondary">Tillbaka</Button>
         </Link>
       </Form>
-    </>
+    </Container>
   );
 }

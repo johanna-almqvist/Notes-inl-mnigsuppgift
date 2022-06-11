@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IGetNewDoc } from "../models/IGetNewDoc";
-import { INewDoc } from "../models/INewDoc";
 import { getAllDocuments } from "../services/DocumentService";
 
 export function AllDocs() {
@@ -20,8 +19,20 @@ export function AllDocs() {
   }, []);
 
   return (
-    <>
-      <h2>Alla Dokument</h2>
+    <Container className="pt-2">
+      <Row>
+        <Col>
+          <h2>Alla Dokument</h2>
+        </Col>
+        <Col>
+          <Link to="/newdoc">
+            <Button variant="outline-success" size="lg">
+              Skapa nytt Dokument
+            </Button>
+          </Link>
+        </Col>
+      </Row>
+
       <Container>
         {loading ? (
           <Spinner animation="border" />
@@ -30,7 +41,6 @@ export function AllDocs() {
             {allDocuments.map((document) => {
               return (
                 <div>
-                  <p>{document.id}</p>
                   <Link to={`/viewdoc/${document.id}`}>
                     <h3>{document.docName}</h3>
                   </Link>
@@ -41,9 +51,6 @@ export function AllDocs() {
           </div>
         )}
       </Container>
-      <Link to="/newdoc">
-        <Button>Skapa nytt Dokument</Button>
-      </Link>
-    </>
+    </Container>
   );
 }

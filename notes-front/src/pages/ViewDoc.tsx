@@ -22,22 +22,20 @@ export function ViewDoc() {
     return <div>LOADDINAR...</div>;
   }
   return (
-    <>
+    <Container>
       <Container>
-        <div>
-          <h3>{document?.docName}</h3>
-          <p>{document?.docDescription}</p>
-          <div
-            dangerouslySetInnerHTML={{ __html: document.tinymceText || "" }}
-          ></div>
-        </div>
+        <h3>{document?.docName}</h3>
+        <p>{document?.docDescription}</p>
+        <div
+          dangerouslySetInnerHTML={{ __html: document.tinymceText || "" }}
+        ></div>
       </Container>
-      <Link to="/alldocs">
-        <Button>Tillbaka</Button>
-      </Link>
+      <Link to="/">
+        <Button variant="outline-primary">Tillbaka</Button>
+      </Link>{" "}
       <Link to="edit">
-        <Button>Redigera</Button>
+        <Button variant="outline-warning">Redigera</Button>
       </Link>
-    </>
+    </Container>
   );
 }
