@@ -27,7 +27,7 @@ Backend delen är skapad med express generator och mysql.
 ### Steg att komma igång
 
 ### Importera databasen
-Importera databasen i en databashaneare för mysql. Tex phpMyAdmin.
+Importera databasen i en databasadministratör för MySql.
 
 #### `npm i`
 
