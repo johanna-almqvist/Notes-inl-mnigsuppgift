@@ -2,7 +2,7 @@
 Dynamisk webb inlämningsuppgift. Dokumenthanteringssystem med MySQL.
 
 ## Frontend
-Frontend delen är skapad med creat-react-app med typecsript.
+Frontend är skapad med creat-react-app med typecsript.
 
 ### Steg att komma igång
 
@@ -22,7 +22,7 @@ skriv npm start för att köra igång localhost.
 [axios](https://www.npmjs.com/package/axios)
 
 ## Backend
-Backend delen är skapad med express generator och mysql.
+Backend är skapad med express generator och mysql.
 
 ### Steg att komma igång
 
