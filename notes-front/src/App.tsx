@@ -34,7 +34,6 @@ function App() {
           >
             {isLoggedIn ? (
               <>
-                <Route path="/edit" element={<EditPage />} />
                 <Route path="/" element={<AllDocs />} />
                 <Route path="/newdoc" element={<NewDoc />} />
                 <Route path="/viewdoc/:documentId" element={<ViewDoc />} />
